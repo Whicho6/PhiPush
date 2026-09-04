@@ -1,0 +1,25 @@
+.env
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+secrets/
+*.log
+*.tmp
+.pytest_cache/
+.pytest-tmp/
+.coverage
+htmlcov/
+miniprogram/config.js
+.research/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+dist/
+build/
+*.egg-info/
+
+# 用户本地生成的完整曲库，不在公开仓库分发
+data/charts.json

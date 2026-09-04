@@ -1,0 +1,1 @@
+const api=require('../../services/api');Page({data:{items:[]},async onLoad(){try{const x=await api.request('/api/analysis/opportunities','POST',{limit:10});this.setData({items:x.opportunities})}catch(e){wx.showToast({title:e.message,icon:'none'})}}})

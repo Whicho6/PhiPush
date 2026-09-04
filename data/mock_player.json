@@ -1,0 +1,348 @@
+{
+  "nickname": "Demo Player",
+  "source_rks": 15.0,
+  "records": [
+    {
+      "song_id": "demo.track.01",
+      "difficulty": "AT",
+      "score": 987421,
+      "accuracy": 98.31,
+      "fc": false,
+      "song": "Demo Track 01"
+    },
+    {
+      "song_id": "demo.track.02",
+      "difficulty": "AT",
+      "score": 981220,
+      "accuracy": 97.66,
+      "fc": false,
+      "song": "Demo Track 02"
+    },
+    {
+      "song_id": "demo.track.03",
+      "difficulty": "AT",
+      "score": 990110,
+      "accuracy": 98.74,
+      "fc": true,
+      "song": "Demo Track 03"
+    },
+    {
+      "song_id": "demo.track.04",
+      "difficulty": "AT",
+      "score": 994840,
+      "accuracy": 99.21,
+      "fc": true,
+      "song": "Demo Track 04"
+    },
+    {
+      "song_id": "demo.track.05",
+      "difficulty": "AT",
+      "score": 996120,
+      "accuracy": 99.43,
+      "fc": true,
+      "song": "Demo Track 05"
+    },
+    {
+      "song_id": "demo.track.06",
+      "difficulty": "AT",
+      "score": 988240,
+      "accuracy": 98.43,
+      "fc": false,
+      "song": "Demo Track 06"
+    },
+    {
+      "song_id": "demo.track.07",
+      "difficulty": "AT",
+      "score": 992450,
+      "accuracy": 99.01,
+      "fc": true,
+      "song": "Demo Track 07"
+    },
+    {
+      "song_id": "demo.track.08",
+      "difficulty": "AT",
+      "score": 979840,
+      "accuracy": 97.42,
+      "fc": false,
+      "song": "Demo Track 08"
+    },
+    {
+      "song_id": "demo.track.09",
+      "difficulty": "AT",
+      "score": 995830,
+      "accuracy": 99.37,
+      "fc": true,
+      "song": "Demo Track 09"
+    },
+    {
+      "song_id": "demo.track.10",
+      "difficulty": "AT",
+      "score": 975210,
+      "accuracy": 96.94,
+      "fc": false,
+      "song": "Demo Track 10"
+    },
+    {
+      "song_id": "demo.track.11",
+      "difficulty": "AT",
+      "score": 985630,
+      "accuracy": 98.06,
+      "fc": false,
+      "song": "Demo Track 11"
+    },
+    {
+      "song_id": "demo.track.12",
+      "difficulty": "AT",
+      "score": 972450,
+      "accuracy": 96.58,
+      "fc": false,
+      "song": "Demo Track 12"
+    },
+    {
+      "song_id": "demo.track.13",
+      "difficulty": "AT",
+      "score": 989920,
+      "accuracy": 98.66,
+      "fc": true,
+      "song": "Demo Track 13"
+    },
+    {
+      "song_id": "demo.track.14",
+      "difficulty": "AT",
+      "score": 984210,
+      "accuracy": 97.91,
+      "fc": false,
+      "song": "Demo Track 14"
+    },
+    {
+      "song_id": "demo.track.15",
+      "difficulty": "AT",
+      "score": 997320,
+      "accuracy": 99.62,
+      "fc": true,
+      "song": "Demo Track 15"
+    },
+    {
+      "song_id": "demo.track.16",
+      "difficulty": "AT",
+      "score": 999130,
+      "accuracy": 99.86,
+      "fc": true,
+      "song": "Demo Track 16"
+    },
+    {
+      "song_id": "demo.track.17",
+      "difficulty": "AT",
+      "score": 1000000,
+      "accuracy": 100.0,
+      "fc": true,
+      "ap": true,
+      "song": "Demo Track 17"
+    },
+    {
+      "song_id": "demo.track.18",
+      "difficulty": "AT",
+      "score": 998420,
+      "accuracy": 99.74,
+      "fc": true,
+      "song": "Demo Track 18"
+    },
+    {
+      "song_id": "demo.track.19",
+      "difficulty": "AT",
+      "score": 1000000,
+      "accuracy": 100.0,
+      "fc": true,
+      "ap": true,
+      "song": "Demo Track 19"
+    },
+    {
+      "song_id": "demo.track.20",
+      "difficulty": "AT",
+      "score": 997950,
+      "accuracy": 99.68,
+      "fc": true,
+      "song": "Demo Track 20"
+    },
+    {
+      "song_id": "demo.track.21",
+      "difficulty": "AT",
+      "score": 982610,
+      "accuracy": 97.72,
+      "fc": false,
+      "song": "Demo Track 21"
+    },
+    {
+      "song_id": "demo.track.22",
+      "difficulty": "IN",
+      "score": 1000000,
+      "accuracy": 100.0,
+      "fc": true,
+      "ap": true,
+      "song": "Demo Track 22"
+    },
+    {
+      "song_id": "demo.track.23",
+      "difficulty": "IN",
+      "score": 998740,
+      "accuracy": 99.79,
+      "fc": true,
+      "song": "Demo Track 23"
+    },
+    {
+      "song_id": "demo.track.24",
+      "difficulty": "IN",
+      "score": 997110,
+      "accuracy": 99.58,
+      "fc": true,
+      "song": "Demo Track 24"
+    },
+    {
+      "song_id": "demo.track.25",
+      "difficulty": "IN",
+      "score": 999030,
+      "accuracy": 99.84,
+      "fc": true,
+      "song": "Demo Track 25"
+    },
+    {
+      "song_id": "demo.track.26",
+      "difficulty": "IN",
+      "score": 1000000,
+      "accuracy": 100.0,
+      "fc": true,
+      "ap": true,
+      "song": "Demo Track 26"
+    },
+    {
+      "song_id": "demo.track.27",
+      "difficulty": "IN",
+      "score": 992870,
+      "accuracy": 99.06,
+      "fc": true,
+      "song": "Demo Track 27"
+    },
+    {
+      "song_id": "demo.track.28",
+      "difficulty": "IN",
+      "score": 996880,
+      "accuracy": 99.51,
+      "fc": true,
+      "song": "Demo Track 28"
+    },
+    {
+      "song_id": "demo.track.29",
+      "difficulty": "IN",
+      "score": 995410,
+      "accuracy": 99.31,
+      "fc": true,
+      "song": "Demo Track 29"
+    },
+    {
+      "song_id": "demo.track.30",
+      "difficulty": "IN",
+      "score": 999210,
+      "accuracy": 99.87,
+      "fc": true,
+      "song": "Demo Track 30"
+    },
+    {
+      "song_id": "demo.track.31",
+      "difficulty": "IN",
+      "score": 991750,
+      "accuracy": 98.91,
+      "fc": false,
+      "song": "Demo Track 31"
+    },
+    {
+      "song_id": "demo.track.32",
+      "difficulty": "IN",
+      "score": 998030,
+      "accuracy": 99.69,
+      "fc": true,
+      "song": "Demo Track 32"
+    },
+    {
+      "song_id": "demo.track.33",
+      "difficulty": "IN",
+      "score": 989310,
+      "accuracy": 98.57,
+      "fc": false,
+      "song": "Demo Track 33"
+    },
+    {
+      "song_id": "demo.track.34",
+      "difficulty": "IN",
+      "score": 999450,
+      "accuracy": 99.91,
+      "fc": true,
+      "song": "Demo Track 34"
+    },
+    {
+      "song_id": "demo.track.35",
+      "difficulty": "IN",
+      "score": 994980,
+      "accuracy": 99.28,
+      "fc": true,
+      "song": "Demo Track 35"
+    },
+    {
+      "song_id": "demo.track.36",
+      "difficulty": "IN",
+      "score": 1000000,
+      "accuracy": 100.0,
+      "fc": true,
+      "ap": true,
+      "song": "Demo Track 36"
+    },
+    {
+      "song_id": "demo.track.37",
+      "difficulty": "IN",
+      "score": 998920,
+      "accuracy": 99.81,
+      "fc": true,
+      "song": "Demo Track 37"
+    },
+    {
+      "song_id": "demo.track.38",
+      "difficulty": "IN",
+      "score": 999520,
+      "accuracy": 99.92,
+      "fc": true,
+      "song": "Demo Track 38"
+    },
+    {
+      "song_id": "demo.track.39",
+      "difficulty": "IN",
+      "score": 1000000,
+      "accuracy": 100.0,
+      "fc": true,
+      "ap": true,
+      "song": "Demo Track 39"
+    },
+    {
+      "song_id": "demo.track.40",
+      "difficulty": "IN",
+      "score": 998120,
+      "accuracy": 99.71,
+      "fc": true,
+      "song": "Demo Track 40"
+    },
+    {
+      "song_id": "demo.track.41",
+      "difficulty": "IN",
+      "score": 997880,
+      "accuracy": 99.65,
+      "fc": true,
+      "song": "Demo Track 41"
+    },
+    {
+      "song_id": "Unknown.NewSong.0",
+      "song": "Unmapped Future Song",
+      "difficulty": "AT",
+      "score": 990000,
+      "accuracy": 98.5,
+      "fc": false
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="PhiPush — 基于 Phigros 云存档的 RKS 推分规划工具">
+  <title>PhiPush · 下一首推什么</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>.top-actions{display:flex;align-items:center;gap:14px}.lang-toggle{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:9px;padding:7px 12px;font:700 13px inherit;cursor:pointer}.lang-toggle:hover{border-color:var(--acid);color:var(--acid)}.tap-panel{text-align:center;margin-top:18px;padding:16px;background:#fff;color:#111;border-radius:14px}.tap-panel img{width:min(240px,100%);display:block;margin:auto}.tap-panel p{font-size:14px}.tap-panel a{color:#3156b8;font-size:13px}.best-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.best-card{background:linear-gradient(135deg,#151c26,#0d1219);border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:13px;padding:16px;min-width:0}.best-card.phi{border-left-color:var(--acid);box-shadow:inset 0 0 28px #d7ff3f08}.best-top,.best-values{display:flex;align-items:center;justify-content:space-between;gap:10px}.best-rank{font-size:13px;font-weight:900;color:var(--cyan)}.best-card.phi .best-rank{color:var(--acid)}.slot-badge{font-size:10px;font-weight:900;letter-spacing:1px;border:1px solid var(--line);padding:3px 7px;border-radius:5px}.best-card h3{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:13px 0 7px}.best-values{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}.best-values strong{font-size:21px;color:var(--acid)}.best-values small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}@media(max-width:900px){.best-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.best-grid{grid-template-columns:1fr}}</style>
+</head>
+<body data-mock="{{ 'true' if mock else 'false' }}">
+<header class="top"><a class="brand" href="#">Phi<span>Push</span></a><div class="top-actions"><button id="langToggle" class="lang-toggle" type="button">English</button><div id="modeLabel" class="mode">{{ '演示模式' if mock else '本地 · 私密' }}</div></div></header>
+<main>
+  <section id="login" class="login-shell">
+    <div class="intro"><div class="eyebrow" data-i18n="heroEyebrow">RKS 推分规划</div><h1><span data-i18n="heroLine1">下一首，</span><br><em data-i18n="heroLine2">推什么？</em></h1><p data-i18n="heroDesc">读取你自己的 Phigros 云存档，计算最省 ACC 的推分路线。凭证只在本机后端完成一次读取，不会长期保存。</p></div>
+    <div class="auth-card">
+      <h2 data-i18n="loadRecords">载入成绩</h2>
+      {% if mock %}<button id="demoBtn" class="primary"><span data-i18n="enterDemo">进入模拟演示</span> <b>→</b></button>{% else %}
+      <button id="tapBtn" class="primary" {{ '' if taptap else 'disabled' }}><span data-i18n="tapLogin">TapTap 扫码登录</span> <b>→</b></button>
+      <div id="tapPanel" class="tap-panel" hidden><img id="tapQr" alt="TapTap 登录二维码"><p id="tapStatus">请使用 TapTap 扫码并确认授权</p><a id="tapLink" target="_blank" rel="noopener">无法扫码？打开授权链接</a></div>
+      {% if not taptap %}<p class="notice" data-i18n="tapUnavailable">TapTap 登录当前不可用，请改用 SessionToken。</p>{% endif %}
+      <button id="tokenToggle" class="link" data-i18n="useToken">改用 SessionToken</button>
+      <form id="tokenForm" hidden><label>SessionToken<input id="tokenInput" type="password" autocomplete="off" required minlength="10" data-i18n-placeholder="tokenPlaceholder" placeholder="仅用于本次读取"></label><button class="secondary" data-i18n="readSave">安全读取云存档</button></form>{% endif %}
+      <p id="loginMsg" class="message" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="dashboard" hidden>
+    <div class="dash-head"><div><div class="eyebrow" data-i18n="playerOverview">玩家概览</div><h1 id="nickname">—</h1></div><div class="rks-block"><small data-i18n="currentRks">当前 RKS</small><strong id="currentRks">—</strong></div><div class="stat"><small data-i18n="b30Cutoff">B30 入选线</small><b id="cutoff">—</b></div><div class="stat"><small data-i18n="recordsLabel">成绩数量</small><b id="recordCount">—</b></div></div>
+    <div class="target-bar"><div><small data-i18n="setTarget">设定目标</small><h2 data-i18n="planNext">规划下一段 RKS</h2></div><label><span data-i18n="targetRks">目标 RKS</span><input id="targetRks" type="number" min="0" max="20" step="0.001"></label><button id="analyzeBtn" class="primary" data-i18n="planButton">帮我规划推分</button></div>
+    <div class="section-title"><div><span>01</span><h2 data-i18n="rksRanking">计入 RKS 的谱面排行</h2></div><p data-i18n="rksRankingDesc">按单谱 RKS 从高到低排列</p></div>
+    <div id="bestRanking" class="best-grid"></div>
+    <div class="section-title"><div><span>02</span><h2 data-i18n="bestOpps">最佳推分机会</h2></div><p data-i18n="oppsDesc">按收益与所需 ACC 提升综合排序</p></div>
+    <div id="opportunities" class="opportunities"></div>
+    <div id="routeSection" hidden><div class="section-title"><div><span>03</span><h2 data-i18n="recommendedRoute">推荐路线</h2></div><p id="routeSummary"></p></div><div id="route" class="route"></div></div>
+    <div class="section-title"><div><span>04</span><h2 data-i18n="allRecords">全部成绩</h2></div><p data-i18n="recordsDesc">搜索、筛选与排序你的全部谱面</p></div>
+    <div class="filters"><input id="search" type="search" data-i18n-placeholder="searchSongs" placeholder="搜索歌曲"><select id="difficulty"><option value="" data-i18n="allDifficulties">全部难度</option><option>EZ</option><option>HD</option><option>IN</option><option>AT</option></select><select id="sort"><option value="rks" data-i18n="sortRks">按单谱 RKS</option><option value="accuracy" data-i18n="sortAcc">按 ACC</option><option value="constant" data-i18n="sortConstant">按定数</option></select></div>
+    <div class="table-wrap"><table><thead><tr><th data-i18n="chartDifficulty">曲目 / 难度</th><th data-i18n="constant">定数</th><th data-i18n="score">分数</th><th>ACC</th><th data-i18n="status">状态</th><th data-i18n="chartRks">单谱 RKS</th></tr></thead><tbody id="records"></tbody></table></div>
+  </section>
+</main>
+<footer data-i18n="footer">PhiPush v0.1 · 只读本地分析 · 切勿泄露 SessionToken</footer>
+<script src="/static/app.js" defer></script>
+</body></html>

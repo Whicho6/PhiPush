@@ -1,0 +1,1 @@
+const api=require('../../services/api');Page({data:{route:{}},async onLoad(q){try{this.setData({route:await api.request('/api/analysis/target-route','POST',{target_rks:Number(q.target)})})}catch(e){wx.showToast({title:e.message,icon:'none'})}}})

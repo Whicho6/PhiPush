@@ -1,0 +1,1 @@
+const api=require('../../services/api');Page({login(){wx.navigateTo({url:'/pages/login/login'})},async demo(){wx.showLoading({title:'加载中'});try{const x=await api.request('/api/auth/mock','POST',{});getApp().globalData.sessionId=x.session_id;wx.reLaunch({url:'/pages/dashboard/dashboard'})}catch(e){wx.showToast({title:e.message,icon:'none'})}finally{wx.hideLoading()}}})
