@@ -63,14 +63,12 @@ python run.py --mock
 python run.py
 ```
 
-真实模式需要在本地提供以下配置，示例见 [`.env.example`](.env.example)：
+首次运行需要连接 GitHub Raw。PhiPush 会从固定的公开上游提交下载初始化资源，校验 SHA-256 后，仅在用户本机生成：
 
-- TapTap / Phigros 客户端配置
-- LeanCloud 应用配置
-- gameRecord AES 参数
-- 完整本地曲库 `data/charts.json`，或 `PHIPUSH_CHART_DATA` 指向的数据文件
+- `.env`：TapTap / LeanCloud 公开客户端参数与 gameRecord 解密参数
+- `data/charts.json`：本地曲库
 
-公开仓库不提供这些参数，也不分发完整真实曲库。缺少曲库时服务会以 degraded 状态启动，真实登录入口返回清晰错误；Mock 模式不受影响。认证细节见 [docs/AUTH.md](docs/AUTH.md)。
+这两个文件都被 Git 忽略，不随仓库分发。下载失败或校验不一致时，程序会拒绝使用该资源并以 degraded 状态启动。已有自己配置的用户可继续通过 [`.env.example`](.env.example) 覆盖；认证细节见 [docs/AUTH.md](docs/AUTH.md)。
 
 ## 架构
 
@@ -98,7 +96,7 @@ PhiPush 会测试多个 ACC 增量、常用精度节点、B27 入选线和下一
 - 不提供云存档上传、成绩修改或作弊功能
 - Python 无法保证敏感字符串立即从进程内存物理擦除；公开部署仍需 HTTPS、日志控制、CORS 和限流
 
-仓库只包含虚构的 `data/demo_charts.json` 与 `data/mock_player.json`。完整真实曲库不随仓库分发；使用者必须自行确认本地数据的使用权。更多认证与凭证处理说明见 [docs/AUTH.md](docs/AUTH.md)。
+仓库只包含虚构的 `data/demo_charts.json` 与 `data/mock_player.json`。完整真实曲库不随仓库分发；首次真实模式运行时从固定公开上游在本机生成。使用者必须自行确认本地数据的使用权。更多认证与凭证处理说明见 [docs/AUTH.md](docs/AUTH.md)。
 
 ## 微信小程序状态
 
@@ -124,7 +122,7 @@ pytest
 
 - 真实登录只完成过作者本人账号的一次端到端验证，没有公开的真实存档测试夹具
 - TapTap、LeanCloud 与 Phigros 云存档流程不是面向本项目承诺稳定的公共 API
-- 公开仓库不分发完整真实曲库，真实模式不能在全新克隆后零配置运行
+- 全新克隆的首次真实模式运行依赖 GitHub Raw；网络不可用时需手动提供本地配置与曲库
 - 推荐算法没有个人练习历史、谱面体感或严格的全局最优求解
 - 内存会话适合本地单进程使用，不是成熟公共服务架构
 - 微信小程序尚未完成正式环境验证
@@ -132,7 +130,7 @@ pytest
 ## Future Work
 
 - 获得适用于公开服务的 TapTap / Phigros 授权与应用配置
-- 建立许可清晰、版本可追溯的曲库更新方式
+- 增加更多可校验的曲库下载镜像与版本更新流程
 - 用个人历史表现改善练习成本估算
 - 增加可公开的固定二进制解析回归样本
 - 完成小程序登录流程、开发者工具和真机验证

@@ -42,6 +42,8 @@ Web 提供手动 SessionToken fallback，主要用于 TapTap device-code 暂时�
 - 会话默认 15 分钟过期，服务重启后立即失效
 - `.env`、本地曲库和常见秘密目录由 Git 忽略
 
+全新克隆在首次真实模式启动时，会从固定的公开上游提交下载初始化文件，逐一校验 SHA-256，然后在本机生成 `.env` 和 `data/charts.json`。该过程不下载、获取或生成玩家 SessionToken；SessionToken 仍只会在用户扫码确认后从 TapTap / LeanCloud 流程短暂取得。
+
 Python 运行时不保证字符串能被立即从物理内存擦除。若部署到非个人本机环境，还必须禁用请求体日志、使用 HTTPS、限制访问来源，并采用适合该环境的密钥管理和隔离措施。
 
 ## 真实账号验证范围

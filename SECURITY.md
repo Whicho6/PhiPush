@@ -15,7 +15,12 @@ password. Public deployments must use HTTPS, disable request-body logging,
 restrict CORS, apply rate limits, and keep private deployment configuration out
 of the repository.
 
-The public repository contains no bundled TapTap/LeanCloud credentials or game decryption parameters. Configure them locally through environment variables. Never add a client secret, Master Key, private server secret, or decryption key to this repository.
+The public repository contains no player credentials and does not bundle the
+upstream client configuration or complete chart database. On the first real-mode
+run, it downloads a pinned set of public upstream files, verifies their SHA-256
+digests, and derives ignored local `.env` and `data/charts.json` files. Never add
+a SessionToken, TapTap access token, client secret, Master Key, private server
+secret, private save, or generated local files to this repository.
 
 ## Public repository checks
 
