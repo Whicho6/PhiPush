@@ -66,7 +66,9 @@ python run.py
 
 扫码模式使用 OAuth device-code：后端创建登录请求，客户端显示带倒计时的二维码/链接并轮询；授权完成后由后端换取 TapTap 身份和 LeanCloud SessionToken，然后只读下载最新 `_GameSave`、解密 ZIP 中的 `gameRecord`、标准化成绩，最后丢弃真实凭证并签发短期 PhiPush 会话。连接云存档时对安全的只读请求提供有限瞬时重试。
 
-真实 TapTap → LeanCloud → Phigros 云存档 → gameRecord 链路已经用项目作者本人的账号完成端到端验证。SessionToken fallback 使用同一个只读云存档客户端。项目没有任何上传或修改云存档的接口。该链路依赖非官方稳定协议，服务端或游戏更新后仍可能失效。
+真实 TapTap → LeanCloud → Phigros 云存档 → gameRecord 链路已经由项目作者使用本人账号完成端到端验证。验证范围包括：TapTap 授权登录、本人玩家信息读取、云存档下载与解析、RKS 与游戏内结果核对、B30/Phi 与单曲成绩核对，以及基于真实成绩生成推分推荐。公开仓库不包含验证账号的昵称、标识、Token、Cookie、真实成绩或私人存档。
+
+PhiPush 只访问当前用户本人明确授权后的数据，SessionToken fallback 使用同一个只读云存档客户端；项目没有任何上传或修改云存档的接口。该链路依赖非官方稳定协议，Phigros、Pigeon Games 或 TapTap 更新服务后可能需要调整，也可能停止工作。
 
 ## RKS 规则
 
@@ -174,4 +176,4 @@ run.py            Mock / Real 启动入口
 
 ## 开源与第三方
 
-没有直接复制或 vendoring 上游代码。参考项目、许可证与用途见 `THIRD_PARTY_NOTICES.md`。若将来引入任何上游源码或完整数据，必须先确认许可证、保留版权声明并更新 notice。本项目与 Pigeon Games、Phigros、TapTap 无隶属或背书关系。
+没有直接复制或 vendoring 上游代码。参考项目、许可证与用途见 `THIRD_PARTY_NOTICES.md`。若将来引入任何上游源码或完整数据，必须先确认许可证、保留版权声明并更新 notice。本项目与 Phigros、Pigeon Games、TapTap、WeChat（微信）没有官方隶属、合作、授权或背书关系。
