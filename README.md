@@ -4,23 +4,23 @@ PhiPush 是一个本地优先、只读的 Phigros RKS 推分规划工具。
 
 > **非官方声明：** PhiPush 是非官方第三方社区项目，与 Pigeon Games、Phigros、TapTap、WeChat（微信）没有隶属、合作、授权或背书关系。真实接口兼容性只代表有限的本地测试结果，不代表公开服务许可；第三方协议和接口可能随时变化或停止工作，本项目不保证其长期可用。它回答的不是“我打了多少分”，而是：**What should I grind next?**
 
-项目同时提供 Web 网页和微信原生小程序两个入口。两端调用同一个 FastAPI API，共用同一份成绩解析、RKS 引擎、推分算法和 Mock 数据。
+当前经过实际验证的用户入口是 Web 网页。仓库还包含一个微信原生小程序原型；它按设计调用同一个 FastAPI API，因此复用后端的成绩解析、RKS 引擎、推分算法和 Mock 数据，但尚未完成正式 AppID、HTTPS 合法域名、微信开发者工具及真机端到端验证，不能视为已经可用或已经发布的第二入口。
 
 ## 功能
 
-- 短期 PhiPush 会话；Web 使用 HttpOnly cookie，小程序只持有短期会话 ID
-- 当前 RKS、B30 cutoff、Phi/Best records、全部谱面成绩
+- 短期 PhiPush 会话；Web 使用 HttpOnly cookie，也可使用短期会话请求头
+- 当前 RKS、B27 入选线、P1–P3/B1–B27 records、全部谱面成绩
 - Top 10 推分机会：目标 ACC、单谱 RKS、总 RKS 增益、推荐理由
 - 目标 RKS 的贪心近似路线
 - 搜索歌曲、难度过滤，按 ACC、定数或单谱 RKS 排序
 - 未知曲目安全降级，不因缺少定数而崩溃
-- Mock 模式 42 条成绩，Web 与小程序取自同一个 `data/mock_player.json`
-- SessionToken fallback；只在一次后端请求内使用，不落盘、不写日志
+- Mock 模式包含 42 条虚构成绩；Web 已验证，小程序原型设计为调用同一个 Mock API
+- SessionToken fallback；只在一次只读加载流程中短暂使用，不落盘、不写日志
 
 ## 双端架构
 
 ```text
-Web / 微信小程序
+Web（已验证）/ 微信小程序原型（未完成端到端验证）
        │  PhiPush short-lived session
        ▼
 FastAPI unified JSON API
@@ -44,7 +44,7 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-### Mock 模式（推荐先运行）
+### Mock 模式
 
 ```bash
 python run.py --mock
@@ -61,6 +61,8 @@ python run.py
 打开 `http://127.0.0.1:8000`。若未配置可用的 TapTap OAuth client，页面会明确提示扫码登录暂不可用，并保留 SessionToken fallback。真实云存档协议不是官方稳定 API；游戏或服务升级后可能需要同步更新 LeanCloud 标识、加密参数或解析器。
 
 `PHIGROS_CLIENT_ID`、`PHIGROS_CLIENT_TOKEN`、`LEANCLOUD_APP_ID`、`LEANCLOUD_APP_KEY`、`PHIGROS_AES_KEY_B64`、`PHIGROS_AES_IV_B64` 必须由使用者在本地通过环境变量或项目根目录的 `.env` 设置，参考 `.env.example`。公开仓库不提供或获取这些参数。不要把 SessionToken 或任何私有密钥提交进仓库。
+
+此外，公开仓库不包含完整 `data/charts.json`。因此全新克隆的仓库可以直接运行 Mock 模式，但不能在未经本地配置和准备曲库数据的情况下直接使用真实模式。真实账号验证是在具备所需本地配置与曲库的开发环境中完成的。
 
 ## TapTap 与云存档流程
 
@@ -98,16 +100,20 @@ score = predicted total RKS gain / effort
 
 目标路线在每一步重新计算全部机会，选择单位 ACC 收益最高者并迭代，最多 10 步。它是数学近似，不代表谱面体感难度，也不保证玩家实际结果。
 
-## 微信小程序
+## 微信小程序原型
+
+`miniprogram/` 是尚未发布、尚未完成端到端验证的原型代码，不是当前正式支持的用户入口。它使用 `touristappid` 和本地 API 示例地址；默认配置不能让手机真机访问电脑上的后端。当前登录轮询代码也没有完整处理后端的 `scanned`、`authorizing` 等中间状态，真实 TapTap 登录不能据此宣称可用。
+
+如需仅在微信开发者工具中试验 Mock 流程，可参考以下步骤：
 
 1. 复制 `miniprogram/config.example.js` 为 `miniprogram/config.js`。
 2. 修改 `API_BASE_URL`。
-3. 在微信开发者工具中导入 `miniprogram/`；没有 AppID 时可使用测试号/游客模式完成大部分 Mock 调试。
+3. 在微信开发者工具中导入 `miniprogram/`；测试号/游客模式的具体可用范围取决于当前微信开发者工具。
 4. 后端运行 `python run.py --mock`，小程序首页点击 “Demo / Mock 演示”。
 
-开发者工具本机模拟器可尝试 `http://127.0.0.1:8000` 并关闭“校验合法域名”。**真机里的 localhost 指手机本身**，不能访问电脑；请改为电脑的局域网 IP，并让后端监听 `--host 0.0.0.0`，或使用部署后的 HTTPS API。
+开发者工具本机模拟器可尝试 `http://127.0.0.1:8000` 并关闭“校验合法域名”，但本项目尚未记录一次完整的开发者工具验收。**真机里的 localhost 指手机本身**，不能访问电脑；真机联调至少需要可达的后端地址，并相应配置监听地址、防火墙和微信网络权限。公开发布通常还需要部署后的 HTTPS API。
 
-正式发布时，微信要求在小程序后台配置 HTTPS `request` 合法域名，不能使用 IP、端口或自签名证书。TapTap 第三方 OAuth 在同一手机上无法方便扫码，因此登录页同时提供二维码和“复制登录链接”；最终行为受微信 `web-view`、业务域名和 TapTap 当前授权策略限制。
+正式发布还需要正式小程序 AppID、微信后台网络域名配置、HTTPS、隐私合规与平台审核。TapTap 授权在同一手机上的交互也需要重新设计并实测；现有“二维码/复制链接”页面只能视为原型。
 
 小程序源码不包含 SessionToken 输入、不调用 `wx.setStorageSync` 保存凭证、不把真实凭证放进 URL 或日志。`config.js` 已被 `.gitignore` 忽略。
 
@@ -116,7 +122,7 @@ score = predicted total RKS gain / effort
 **SessionToken 等同敏感账号凭证。不要泄露，不要截图分享，不要提交到 GitHub、Issue、日志或聊天记录。**
 
 - 后端不记录请求正文，不把 token 写入 JSON/数据库/缓存文件
-- token 仅在一次只读加载调用中短暂存在，`finally` 后清除局部引用
+- token 仅在一次只读加载流程中短暂使用，不持久化；代码会尽快清除局部引用，但 Python 运行时不提供敏感字符串立即从进程内存物理擦除的保证
 - 返回给客户端的只有随机的短期 PhiPush session
 - 内存会话默认 15 分钟到期，服务重启立即失效
 - 不包含上传、改分、作弊或云存档修改功能
@@ -147,15 +153,15 @@ pytest
 
 ```text
 app/              FastAPI、统一 API、模板与核心服务
-data/             Mock 玩家和打包谱面数据
-miniprogram/      微信原生小程序
+data/             虚构 Mock 玩家和演示谱面数据
+miniprogram/      未完成端到端验证的微信原生小程序原型
 tests/            pytest 测试
 run.py            Mock / Real 启动入口
 ```
 
 ## 截图
 
-尚未纳入仓库。运行 Mock 模式后可从 Web Dashboard 和微信开发者工具预览并补充到 `docs/screenshots/`。
+尚未纳入仓库。Web Dashboard 可通过 Mock 模式本地预览；小程序截图应在其完成开发者工具或真机验证后再补充。
 
 ## 当前限制
 
@@ -164,7 +170,7 @@ run.py            Mock / Real 启动入口
 - 公开仓库不打包真实曲库；完整数据由使用者在本地自行准备。曲目名称、游戏资源及相关权利属于各自权利人。
 - 算法不含谱面体感、玩家个人短板或练习时间模型。
 - 内存会话适合单机 v0.1，不适合多实例部署。
-- 小程序需要用户在微信开发者工具和真机上完成最终验证。
+- 微信小程序仅为原型，尚有登录状态轮询、正式 AppID、HTTPS 域名、开发者工具与真机验证等未完成工作。
 
 ## Future Work
 
