@@ -81,7 +81,7 @@ python -m pip install -r requirements-build.txt
 pyinstaller --clean --noconfirm PhiPush.spec
 ```
 
-输出位于 `dist/PhiPush.exe`。GitHub Actions 也可手动构建 Windows artifact；推送 `v*` tag 时会自动创建带 Windows ZIP 的 Release。
+输出位于 `dist/PhiPush.exe`。GitHub Actions 可手动运行，也会在推送 `v*` tag 时构建可下载的 Windows artifact；正式版 ZIP 由维护者从该 artifact 发布到 Releases。
 
 ## 架构
 
