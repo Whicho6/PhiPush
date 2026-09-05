@@ -33,7 +33,7 @@ PhiPush 是一个面向 Phigros 玩家的 RKS 推分规划工具。它读取玩�
 
 ## 快速开始
 
-如果使用 Windows，可直接从 [Releases](https://github.com/Whicho6/PhiPush/releases) 下载 `PhiPush-Windows-x64.zip`，解压后双击 `PhiPush.exe`。不需要安装 Python；程序会自动打开浏览器。运行期间请保持控制台窗口开启，关闭窗口即停止本地服务。
+如果使用 Windows，可直接从 [Releases](https://github.com/Whicho6/PhiPush/releases) 下载 `PhiPush-Windows-x64.zip`，解压后双击 `PhiPush.exe`。也可使用 GitHub 绿色 **Code → Download ZIP**：源码压缩包根目录同样包含 `PhiPush.exe`。不需要安装 Python；程序会自动打开浏览器。运行期间请保持控制台窗口开启，关闭窗口即停止本地服务。
 
 当前 EXE 未进行商业代码签名，Windows 可能显示 SmartScreen 提示。请只从本项目的 GitHub Releases 下载，不要运行第三方转发的版本。
 
