@@ -3,6 +3,7 @@ __pycache__/
 **/__pycache__/
 *.py[cod]
 .venv/
+.build-venv/
 venv/
 secrets/
 *.log

@@ -33,7 +33,11 @@ PhiPush 是一个面向 Phigros 玩家的 RKS 推分规划工具。它读取玩�
 
 ## 快速开始
 
-需要 Python 3.11+：
+如果使用 Windows，可直接从 [Releases](https://github.com/Whicho6/PhiPush/releases) 下载 `PhiPush-Windows-x64.zip`，解压后双击 `PhiPush.exe`。不需要安装 Python；程序会自动打开浏览器。运行期间请保持控制台窗口开启，关闭窗口即停止本地服务。
+
+当前 EXE 未进行商业代码签名，Windows 可能显示 SmartScreen 提示。请只从本项目的 GitHub Releases 下载，不要运行第三方转发的版本。
+
+如果使用源码，需要 Python 3.11+：
 
 ```bash
 git clone <your-repository-url>
@@ -69,6 +73,15 @@ python run.py
 - `data/charts.json`：本地曲库
 
 这两个文件都被 Git 忽略，不随仓库分发。下载失败或校验不一致时，程序会拒绝使用该资源并以 degraded 状态启动。已有自己配置的用户可继续通过 [`.env.example`](.env.example) 覆盖；认证细节见 [docs/AUTH.md](docs/AUTH.md)。
+
+### 构建 Windows EXE
+
+```bash
+python -m pip install -r requirements-build.txt
+pyinstaller --clean --noconfirm PhiPush.spec
+```
+
+输出位于 `dist/PhiPush.exe`。GitHub Actions 也可手动构建 Windows artifact；推送 `v*` tag 时会自动创建带 Windows ZIP 的 Release。
 
 ## 架构
 
@@ -123,6 +136,7 @@ pytest
 - 真实登录只完成过作者本人账号的一次端到端验证，没有公开的真实存档测试夹具
 - TapTap、LeanCloud 与 Phigros 云存档流程不是面向本项目承诺稳定的公共 API
 - 全新克隆的首次真实模式运行依赖 GitHub Raw；网络不可用时需手动提供本地配置与曲库
+- Windows EXE 未进行付费代码签名，首次启动可能触发 SmartScreen 提示
 - 推荐算法没有个人练习历史、谱面体感或严格的全局最优求解
 - 内存会话适合本地单进程使用，不是成熟公共服务架构
 - 微信小程序尚未完成正式环境验证
