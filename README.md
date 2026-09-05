@@ -35,7 +35,33 @@ PhiPush 是一个面向 Phigros 玩家的 RKS 推分规划工具。它读取玩�
 
 如果使用 Windows，可直接从 [Releases](https://github.com/Whicho6/PhiPush/releases) 下载 `PhiPush-Windows-x64.zip`，解压后双击 `PhiPush.exe`。也可使用 GitHub 绿色 **Code → Download ZIP**：源码压缩包根目录同样包含 `PhiPush.exe`。不需要安装 Python；程序会自动打开浏览器。运行期间请保持控制台窗口开启，关闭窗口即停止本地服务。
 
-当前 EXE 未进行商业代码签名，Windows 可能显示 SmartScreen 提示。请只从本项目的 GitHub Releases 下载，不要运行第三方转发的版本。
+#### Windows 显示“Windows 已保护你的电脑”
+
+当前 EXE 没有付费代码签名，新发布且下载量较少，Microsoft Defender SmartScreen 可能将它标记为“无法识别的应用”。这是基于文件来源和应用信誉的预防性警告，不等于 Windows 已确认它是恶意软件。Windows 10 和 Windows 11 都可能出现此提示。
+
+只有在你确认文件来自本项目时，才继续：
+
+1. 确认下载地址是 `github.com/Whicho6/PhiPush`，不要运行第三方转发的 EXE。
+2. 可先用 Windows Defender 或你的杀毒软件扫描文件。
+3. 在蓝色 SmartScreen 窗口中点击 **更多信息**。
+4. 再次确认应用名为 `PhiPush.exe`。未签名版本的发布者会显示为未知。
+5. 点击 **仍要运行**。
+
+如果没有“更多信息”或“仍要运行”，可右键 `PhiPush.exe` → **属性** → **常规**，查看窗口底部是否有 **解除锁定**，勾选后点击 **应用** 与 **确定**。该选项不是所有文件都会出现；仅应对已核对来源的文件使用。
+
+Windows 11 的 Smart App Control，以及公司、学校设备的组策略 / Intune 策略，可能完全隐藏绕过选项。这种情况下不要为运行 PhiPush 而关闭 Defender、SmartScreen 或组织安全策略；请改用上方的 Python 源码方式，或联系设备管理员。微软对下载标记与管理策略的说明见 [Attachment Manager](https://support.microsoft.com/en-us/windows/security/information-about-the-attachment-manager-in-microsoft-windows)、[App & browser control](https://support.microsoft.com/en-us/windows/security/windows-security-app-browser-control-in-the-windows-security-app) 和 [SmartScreen reputation](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation)。
+
+当前根目录 `PhiPush.exe` 的 SHA-256 为：
+
+```text
+f07c9509f6d2bd5f72db313b77817597a2a9b248f1f406917ee0c410aaf30ddb
+```
+
+可在 PowerShell 中核对：
+
+```powershell
+Get-FileHash .\PhiPush.exe -Algorithm SHA256
+```
 
 如果使用源码，需要 Python 3.11+：
 
